@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 public class SphereLogic {
 
     public static final double PI = 3.14;
-    public static final int COEFFICIENT = 4;
+    public static final int COMMON_SPHERE_COEFFICIENT = 4;
     /*
     коэфициент ииспользуется при определении является ли данная фигура шаром
     получается путем нахождения объема шара и его площади
@@ -48,9 +48,9 @@ public class SphereLogic {
         return 0;
     }
    public boolean isSphere (Sphere sphere){
-        double res = sphere.getRadius()/(calcSphereVolume(sphere)/calculateSphereArea(sphere))+0.1;
-        double r = (int) res;
-        return r==COEFFICIENT;
+       double res = sphere.getRadius()/(calcSphereVolume(sphere)/calculateSphereArea(sphere))+0.1;
+       double r = (int) res;
+       return r==COMMON_SPHERE_COEFFICIENT;
    }
 
     public boolean isSphereCrossesAxis(Sphere sphere) { //проверка на персечение оси координат

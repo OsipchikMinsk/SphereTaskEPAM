@@ -47,7 +47,10 @@ public class Point {
 
     @Override
     public int hashCode() {
-        return (int)  (31*(x+y+z));
+        int res = (int) (31*x);
+        res += res + 31*y;
+        res += res + 31*z;
+        return res;
     }
 
     @Override

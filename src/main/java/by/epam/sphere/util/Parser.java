@@ -19,7 +19,6 @@ public class Parser {
                 } catch (NumberFormatException e){
                     LOGGER.error("Ошибкаа при парсинге данных");
                 }
-
             }
         }
         return resultData;

@@ -3,11 +3,12 @@ package by.epam.sphere.logic;
 import by.epam.sphere.entity.Point;
 import by.epam.sphere.entity.Sphere;
 import by.epam.sphere.exception.NotSphereException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class SphereLogic {
+
+
 
     public static final double PI = 3.14;
     public static final int COMMON_SPHERE_COEFFICIENT = 4;
@@ -16,8 +17,10 @@ public class SphereLogic {
     получается путем нахождения объема шара и его площади
     коэфициент = радиус/(объем шара/площадь шара)
     */
+    private static final SphereLogic INSTANCE = new SphereLogic();
 
     private static final Logger LOGGER = LogManager.getLogger(SphereLogic.class);
+
     public boolean isRadiusNumber(Sphere sphere) { //положительный ли радиус
         try {
            // logger.info("Check radius");
@@ -95,8 +98,13 @@ public class SphereLogic {
         sphereVolume = sphereVolume - sphereVolumeHX; //рассчет объема второй полусферы
         return sphereVolume / sphereVolumeHX;
     }
+    public static SphereLogic getInstance(){
+        return INSTANCE;
+    }
 
-   }
+
+
+}
 
 
 

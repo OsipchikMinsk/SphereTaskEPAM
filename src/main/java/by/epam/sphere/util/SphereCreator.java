@@ -21,7 +21,6 @@ public class SphereCreator {
         File file = new File(DATA_PATH);
         UtilFileReader fileReader = new UtilFileReader(file);
         String dataFromFile = fileReader.readFirstLine();
-        System.out.println(dataFromFile);
         List<Double> dataForSphere = Parser.parseData(dataFromFile);
         double x = dataForSphere.get(POSITION_OF_X);
         double y = dataForSphere.get(POSITION_OF_y);

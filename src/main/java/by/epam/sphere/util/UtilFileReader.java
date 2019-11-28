@@ -12,8 +12,6 @@ public class UtilFileReader implements AutoCloseable {
     static final Logger LOGGER = LogManager.getLogger(UtilFileReader.class);
     private File file;
 
-//    private BufferedReader fileReader;
-
     public UtilFileReader(File file)  {
             this.file = file;
     }

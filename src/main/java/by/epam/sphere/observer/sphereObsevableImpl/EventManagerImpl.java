@@ -2,11 +2,9 @@ package by.epam.sphere.observer.sphereObsevableImpl;
 
 import by.epam.sphere.observer.Observable;
 import by.epam.sphere.observer.Observer;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class EventManagerImpl implements Observable<EventManagerImpl.Events, Observer> {
 
@@ -18,28 +16,31 @@ public class EventManagerImpl implements Observable<EventManagerImpl.Events, Obs
     }
 
     public EventManagerImpl(List<Observer> listenerList) {
-        Stream.of(EventManagerImpl.Events.values()).forEach(event -> {
-            listeners.put(event.name(), listenerList);
-        });
+        listeners.put(Events.POINT_CHANGE.toString(),listenerList);
+        listeners.put(Events.RADIUS_CHANGE.toString(),listenerList);
+
+
     }
 
     @Override
-    public void subscribe(EventManagerImpl.Events eventType, Observer listener) {
-        List<Observer> spheres = listeners.get(eventType);
+    public void subscribe(Events eventType, Observer listener) {
+        List<Observer> spheres;
+        spheres = listeners.get(eventType.toString());
         if (!spheres.contains(listener)) {
             spheres.add(listener);
         }
     }
 
     @Override
-    public void unsubscribe(EventManagerImpl.Events eventType, Observer listener) {
-        List<Observer> spheres = listeners.get(eventType);
+    public void unsubscribe(Events eventType, Observer listener) {
+        List<Observer> spheres = listeners.get(eventType.toString());
         spheres.remove(listener);
     }
 
+
     @Override
-    public void notify(EventManagerImpl.Events eventType, Observer listener) {
-        List<Observer> spheres = listeners.get(eventType);
+    public void notify(Events eventType, Observer listener) {
+        List<Observer> spheres = listeners.get(eventType.toString());
         spheres.forEach(sp -> sp.update(eventType,listener));
     }
 }

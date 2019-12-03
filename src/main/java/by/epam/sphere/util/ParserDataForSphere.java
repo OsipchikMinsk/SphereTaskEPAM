@@ -2,12 +2,11 @@ package by.epam.sphere.util;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Parser {
-    static final Logger LOGGER = LogManager.getLogger(Parser.class.getName());
+public class ParserDataForSphere {
+    static final Logger LOGGER = LogManager.getLogger(ParserDataForSphere.class.getName());
 
     public static List<Double> parseData(String input) {
         List<Double> resultData = new ArrayList<>();

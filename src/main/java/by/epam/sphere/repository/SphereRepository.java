@@ -2,7 +2,7 @@ package by.epam.sphere.repository;
 
 import by.epam.sphere.entity.Figure;
 import by.epam.sphere.entity.Sphere;
-import by.epam.sphere.observer.spereObserverImpl.SphereWrapper;
+import by.epam.sphere.observer.spereObserverImpl.SphereParameter;
 import by.epam.sphere.repository.specification.Specification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +15,7 @@ public class SphereRepository {
     public static final Logger LOGGER = LogManager.getLogger(SphereRepository.class);
 
     private List<Figure> sphereList;
-    private Map<Integer, SphereWrapper> sphereMap;
+    private Map<Integer, SphereParameter> sphereMap;
 
     public SphereRepository() {
         this.sphereList = new ArrayList<>();
@@ -26,7 +26,7 @@ public class SphereRepository {
         LOGGER.info("Добавлена фигура" + figure.toString());
         if(figure.getClass()== Sphere.class){
             Sphere sphere = (Sphere) figure;
-            SphereWrapper sphereWrapper = new SphereWrapper(sphere);
+            SphereParameter sphereWrapper = new SphereParameter(sphere);
             sphereMap.put(sphere.getId(),sphereWrapper);
        }
     }
@@ -52,7 +52,7 @@ public class SphereRepository {
 
 
 
-    public Map<Integer, SphereWrapper> getSphereMap() {
+    public Map<Integer, SphereParameter> getSphereMap() {
         return sphereMap;
     }
 

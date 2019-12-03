@@ -1,6 +1,6 @@
 package by.epam.sphere.entity;
 
-import by.epam.sphere.observer.Observer;
+import by.epam.sphere.observer.spereObserverImpl.SphereParameter;
 import by.epam.sphere.observer.sphereObsevableImpl.EventManagerImpl;
 import java.util.Objects;
 
@@ -12,6 +12,7 @@ public class Sphere implements Figure {
     EventManagerImpl eventManager;
     private int id;
     private static int idGenerator = 0;
+    SphereParameter sphereParameter;
 
     {
         idGenerator++;
@@ -25,7 +26,8 @@ public class Sphere implements Figure {
         this.center = center;
         this.radius = radius;
         this.id = idGenerator;
-    }
+        this.sphereParameter = new SphereParameter(this);
+        }
 
 
     public int getId() {
@@ -38,7 +40,7 @@ public class Sphere implements Figure {
 
     public void setCenter(Point center) {
         this.center = center;
-        eventManager.notify(EventManagerImpl.Events.POINT_CHANGE, (Observer) this);
+        eventManager.notify(EventManagerImpl.Events.POINT_CHANGE, sphereParameter);
 
     }
 
@@ -48,7 +50,7 @@ public class Sphere implements Figure {
 
     public void setRadius(double radius) {
         this.radius = radius;
-        eventManager.notify(EventManagerImpl.Events.RADIUS_CHANGE, (Observer) this);
+        eventManager.notify(EventManagerImpl.Events.RADIUS_CHANGE, sphereParameter);
     }
 
     @Override

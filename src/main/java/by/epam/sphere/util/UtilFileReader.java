@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtilFileReader implements AutoCloseable {
+public class UtilFileReader  {
 
     static final Logger LOGGER = LogManager.getLogger(UtilFileReader.class);
     private File file;
@@ -28,9 +28,4 @@ public class UtilFileReader implements AutoCloseable {
         return firstLine;
     }
 
-
-    @Override
-    public void close() throws Exception {
-
-    }
 }

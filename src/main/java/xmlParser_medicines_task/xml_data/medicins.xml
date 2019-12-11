@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medicins xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.preparation.by/medicins"
+       xsi:schemaLocation="http://www.preparation.by/medicins /xmlParser_medicines_task/xml_data/medicins.xsd">
+    <preparation group="болеутоляющее">
+        <name>Аспирин</name>
+        <pharm>БелМедПрепараты</pharm>
+        <group type_group="болеутоляющее"></group>
+        <analogs>
+            <analog>Кетанов</analog>
+            <analog>Кеторол</analog>
+        </analogs>
+        <versions>
+            <version>
+                <type>Таблетки</type>
+                <certificate>
+                    <number>123456789</number>
+                    <start-date>02.10.2019</start-date>
+                    <expire-date>02.05.2020</expire-date>
+                    <registration-organization>"OOO Неболитголова"</registration-organization>
+                </certificate>
+                <pacage>
+                    <type-of-pacage>Картон</type-of-pacage>
+                    <amount-in-pacage>30</amount-in-pacage>
+                    <pacage-price>5</pacage-price>
+                </pacage>
+                <dosage>
+                    <measuring>1 шт</measuring>
+                    <periodicity>чере каждые 4 часа</periodicity>
+                </dosage>
+            </version>
+        </versions>
+    </preparation>
+</medicins>

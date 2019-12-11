@@ -4,7 +4,7 @@ import exchange_task2.bank.entity.Exchange;
 
 public interface Operation {
 
-    Exchange exchange = Exchange.getINSTANCE();
+    Exchange exchange = Exchange.getExchange();
     void process ();
     double getValueOfOperation();
 }

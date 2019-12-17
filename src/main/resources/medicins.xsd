@@ -50,7 +50,7 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="antibiotics"/>
             <xs:enumeration value="painkiller"/>
-            <xs:enumeration value="vitamins"/>
+            <xs:enumeration value="vitamins "/>
             <xs:enumeration value="and_others"/>
         </xs:restriction>
     </xs:simpleType>

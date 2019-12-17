@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.lekpharm.by/medicins"
+           elementFormDefault="qualified">
+    <xs:element name="medicins">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="preparation" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence >
+                        <xs:element name="name" type="xs:string"/>
+                        <xs:element name="pharm" type="xs:string"/>
+                        <xs:element name="analog" type="xs:string" maxOccurs="unbounded" />
+                        <xs:element name="version">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="certificate">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="number" type="xs:string"/>
+                                                <xs:element name="start_date" type="xs:string"/>
+                                                <xs:element name="expire_date" type="xs:string"/>
+                                                <xs:element name="registration_organization" type="xs:string"/>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                    <xs:element name="package">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="type_of_package" type="xs:string"/>
+                                                <xs:element name="amount_in_package" type="xs:int"/>
+                                                <xs:element name="pacage_price" type="xs:double"/>
+                                                <xs:element name="dosage" type="xs:string"/>
+                                                <xs:element name="periodicity" type="xs:string"/>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="Type_of_Version" type="typeEnum"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="Group" type="groupEnum"/>
+                </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="typeEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="antibiotics"/>
+            <xs:enumeration value="painkiller"/>
+            <xs:enumeration value="vitamins"/>
+            <xs:enumeration value="and_others"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="groupEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="tablets"/>
+            <xs:enumeration value="capsules"/>
+            <xs:enumeration value="powder"/>
+            <xs:enumeration value="syrup"/>
+            <xs:enumeration value="drops"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

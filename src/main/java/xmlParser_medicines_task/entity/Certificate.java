@@ -1,17 +1,17 @@
-package xmlParser_medicines_task;
+package xmlParser_medicines_task.entity;
 
 import java.util.Date;
 
 public class Certificate {
     private int id;
-    private Date startDate;
-    private Date finishDate;
+    private String startDate; //от какого числа
+    private String expireDate;//до какокого числа
     private String registrationOfOrganization;
 
-    public Certificate(int id, Date startDate, Date finishDate, String registrationOfOrganization) {
+    public Certificate(int id, String startDate, String expireDate, String registrationOfOrganization) {
         this.id = id;
         this.startDate = startDate;
-        this.finishDate = finishDate;
+        this.expireDate = expireDate;
         this.registrationOfOrganization = registrationOfOrganization;
     }
 
@@ -26,20 +26,20 @@ public class Certificate {
         this.id = id;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getFinishDate() {
-        return finishDate;
+    public String getExpireDate() {
+        return expireDate;
     }
 
-    public void setFinishDate(Date finishDate) {
-        this.finishDate = finishDate;
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
     }
 
     public String getRegistrationOfOrganization() {
@@ -54,8 +54,8 @@ public class Certificate {
     public String toString() {
         return "Certificate{" +
                 "id=" + id +
-                ", startDate=" + startDate +
-                ", finishDate=" + finishDate +
+                ", startDate='" + startDate + '\'' +
+                ", expireDate='" + expireDate + '\'' +
                 ", registrationOfOrganization='" + registrationOfOrganization + '\'' +
                 '}';
     }

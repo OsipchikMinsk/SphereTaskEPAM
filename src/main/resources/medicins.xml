@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<medicins xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.lekpharm.by/medicins"
+       xsi:schemaLocation="http://www.lekpharm.by/medicins /medicins.xsd">
+
+    <preparation Group="painkiller">
+        <name>Аспирин</name>
+        <pharm>БелМедПрепараты</pharm>
+        <analog>Кетанов</analog>
+        <analog>Кеторол</analog>
+        <version Type_of_Version="tablets">
+            <certificate>
+                <number>123456789</number>
+                <start_date>02.10.2019</start_date>
+                <expire_date>02.05.2020</expire_date>
+                <registration_organization>"OOO Неболитголова"</registration_organization>
+            </certificate>
+            <package>
+                <type_of_package>Картон</type_of_package>
+                <amount_in_package>30</amount_in_package>
+                <pacage_price>5</pacage_price>
+                <dosage>1 шт</dosage>
+                <periodicity>чере каждые 4 часа</periodicity>
+            </package>
+        </version>
+    </preparation>
+
+    <preparation Group="antibiotics">
+        <name>Антибиотик</name>
+        <pharm>ЛекФарм</pharm>
+        <analog>Антибиотик1</analog>
+        <analog>Антибиотик2</analog>
+        <version Type_of_Version="tablets">
+            <certificate>
+                <number>987456331</number>
+                <start_date>12.10.2019</start_date>
+                <expire_date>12.05.20202</expire_date>
+                <registration_organization>"OOO НеболитРукка"</registration_organization>
+            </certificate>
+            <package>
+                <type_of_package>Пластик</type_of_package>
+                <amount_in_package>45</amount_in_package>
+                <pacage_price>50.5</pacage_price>
+                <dosage>2-3 шт</dosage>
+                <periodicity>чере каждые 6 часа</periodicity>
+            </package>
+        </version>
+        <version Type_of_Version="syrup">
+            <certificate>
+                <number>87456331</number>
+                <start_date>12.10.2019</start_date>
+                <expire_date>12.05.20202</expire_date>
+                <registration_organization>"OOO НеболитНога"</registration_organization>
+            </certificate>
+            <package>
+                <type_of_package>Пластик</type_of_package>
+                <amount_in_package>45</amount_in_package>
+                <pacage_price>50.5</pacage_price>
+                <dosage>2-3 шт</dosage>
+                <periodicity>чере каждые 3 часа</periodicity>
+            </package>
+        </version>
+    </preparation>
+
+
+</medicins>

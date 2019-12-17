@@ -8,7 +8,6 @@ import xmlParser_medicines_task.entity.Certificate;
 import xmlParser_medicines_task.entity.Package;
 import xmlParser_medicines_task.entity.Preparation;
 import xmlParser_medicines_task.entity.Version;
-import xmlParser_medicines_task.parser.sax.Sax;
 import xmlParser_medicines_task.xml_tag_name.PreparationTagName;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -31,66 +30,78 @@ public class DomParser {
         return child;
     }
 
-    public List<Preparation> parse (String path) throws ParserConfigurationException {
 
+    public List<Preparation> parse (String path) throws ParserConfigurationException {
+        LOGGER.info("Dom start parsing file");
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(path);
-            NodeList nodeListPreparation = document.getElementsByTagName(PreparationTagName.PREPARATION);
-            System.out.println(nodeListPreparation.getLength());
+            Element root = document.getDocumentElement();
+            NodeList nodeListPreparation = root.getElementsByTagName(PreparationTagName.PREPARATION);
+            NodeList nodeListVersion = root.getElementsByTagName(PreparationTagName.VERSION);
             for (int i=0;i<nodeListPreparation.getLength();i++) {
                 Node node = nodeListPreparation.item(i);
-                Preparation preparation = new Preparation();
                 Element element = (Element) node;
+                Preparation preparation = new Preparation();
                 NamedNodeMap attributePreparation = node.getAttributes();
                 preparation.setGroup(attributePreparation.getNamedItem(PreparationTagName.GROUP).getNodeValue());
                 preparation.setName(getSingleChild(element, PreparationTagName.NAME).getTextContent().trim());
                 preparation.setPharm(getSingleChild(element, PreparationTagName.PHARM).getTextContent().trim());
                 preparation.setAnalog(getSingleChild(element, PreparationTagName.ANALOG).getTextContent().trim());
-                if (nodeListPreparation.item(i).hasChildNodes()) {
-                    System.out.println(nodeListPreparation.item(i).getChildNodes());
+
+                for (int j = 0; j < nodeListVersion.getLength(); j++) { //
+                    Node nodeVersion = nodeListVersion.item(j);
+                    element = (Element) nodeVersion;
+                    NamedNodeMap attributeVersion = nodeVersion.getAttributes();
                     Version version = new Version();
                     preparation.setVersion(version);
-                    version.setTypeOfVersion(attributePreparation.getNamedItem(PreparationTagName.TYPE_OF_VERSION).
+                    version.setTypeOfVersion(attributeVersion.getNamedItem(PreparationTagName.TYPE_OF_VERSION).
                             getNodeValue());
-                    //TODO NullPointerException
-
                     Certificate certificate = new Certificate();
                     version.setCertificate(certificate);
-                    certificate.setId(Integer.parseInt(getSingleChild(element, PreparationTagName.CERTIFICATE_ID).
+                    certificate.setId(Integer.parseInt(getSingleChild(element,
+                            PreparationTagName.CERTIFICATE_ID).
                             getTextContent().trim()));
-                    certificate.setStartDate(getSingleChild(element, PreparationTagName.CERTIFICATE_DATE_START).
+                    certificate.setStartDate(getSingleChild(element,
+                            PreparationTagName.CERTIFICATE_DATE_START).
                             getTextContent().trim());
-                    certificate.setExpireDate(getSingleChild(element, PreparationTagName.CERTIFICATE_DATE_FINISH).
+                    certificate.setExpireDate(getSingleChild(element,
+                            PreparationTagName.CERTIFICATE_DATE_FINISH).
                             getTextContent().trim());
-                    certificate.setRegistrationOfOrganization(getSingleChild(element, PreparationTagName.REGISTRATION_ORAGANIZATION).
+                    certificate.setRegistrationOfOrganization(getSingleChild(element,
+                            PreparationTagName.REGISTRATION_ORAGANIZATION).
                             getTextContent().trim());
                     Package packageOfDrug = new Package();
                     version.setPackageOfPreparation(packageOfDrug);
-                    packageOfDrug.setTypeOfPackage(getSingleChild(element, PreparationTagName.TYPE_OF_PACKAGE).
+                    packageOfDrug.setTypeOfPackage(getSingleChild(element,
+                            PreparationTagName.TYPE_OF_PACKAGE).
                             getTextContent().trim());
-                    packageOfDrug.setAmountInPackage(Integer.parseInt(getSingleChild(element, PreparationTagName.AMOUNT_IN_PACKAGE).
+                    packageOfDrug.setAmountInPackage(Integer.parseInt(getSingleChild(element,
+                            PreparationTagName.AMOUNT_IN_PACKAGE).
                             getTextContent().trim()));
-                    packageOfDrug.setPackagePrice(Double.parseDouble(getSingleChild(element, PreparationTagName.PACKAGE_PRICE).
+                    packageOfDrug.setPackagePrice(Double.parseDouble(getSingleChild(element,
+                            PreparationTagName.PACKAGE_PRICE).
                             getTextContent().trim()));
-                    packageOfDrug.setDosage(getSingleChild(element, PreparationTagName.DOSAGE).getTextContent().trim());
-                    packageOfDrug.setPeriodicity(getSingleChild(element, PreparationTagName.PERIODICITY).
+                    packageOfDrug.setDosage(getSingleChild(element,
+                            PreparationTagName.DOSAGE).getTextContent().trim());
+                    packageOfDrug.setPeriodicity(getSingleChild(element,
+                            PreparationTagName.PERIODICITY).
                             getTextContent().trim());
-                    this.preparationList.add(preparation);
-                }
+               }
+                this.preparationList.add(preparation);
             }
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullPointerException e){
-            e.printStackTrace();
+
         }
         return preparationList;
     }
-    public void print (){
-        for (Preparation p:preparationList ) {
+
+    public void printPreparations() {
+        for (Preparation p : preparationList) {
             System.out.println(p);
         }
     }
@@ -98,7 +109,7 @@ public class DomParser {
     public static void main(String[] args) throws ParserConfigurationException {
         DomParser domParser = new DomParser();
         domParser.parse(PATH_MEDICINS);
-        domParser.print();
+        domParser.printPreparations();
 
     }
 }

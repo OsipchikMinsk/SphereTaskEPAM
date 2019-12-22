@@ -24,4 +24,16 @@ public class   PreparationTagName {
     public PreparationTagName() {
     }
 
+   /* public static String getPreparationTagName(String element) {
+        switch (element) {
+            case "medicins":
+                return MEDICINS;
+
+        }
+    }
+*/
+
 }
+
+
+

@@ -33,7 +33,7 @@
         <analog>Антибиотик2</analog>
         <version Type_of_Version="tablets">
             <certificate>
-                <number>987456331</number>
+                <number>98745631</number>
                 <start_date>12.10.2019</start_date>
                 <expire_date>12.05.20202</expire_date>
                 <registration_organization>"OOO НеболитРукка"</registration_organization>
@@ -49,8 +49,8 @@
         <version Type_of_Version="syrup">
             <certificate>
                 <number>87456331</number>
-                <start_date>12.10.2019 </start_date>
-                <expire_date>12.05.20202 </expire_date>
+                <start_date>12.10.2019</start_date>
+                <expire_date>12.05.20202</expire_date>
                 <registration_organization>"OOO НеболитНога"</registration_organization>
             </certificate>
             <package>

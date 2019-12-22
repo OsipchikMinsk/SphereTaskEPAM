@@ -50,7 +50,7 @@ public class DomParser {
                 preparation.setPharm(getSingleChild(element, PreparationTagName.PHARM).getTextContent().trim());
                 preparation.setAnalog(getSingleChild(element, PreparationTagName.ANALOG).getTextContent().trim());
 
-                for (int j = 0; j < nodeListVersion.getLength(); j++) { //
+                for (int j = 0; j < nodeListVersion.getLength(); j++) {
                     Node nodeVersion = nodeListVersion.item(j);
                     element = (Element) nodeVersion;
                     NamedNodeMap attributeVersion = nodeVersion.getAttributes();

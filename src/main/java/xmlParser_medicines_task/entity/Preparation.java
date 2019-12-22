@@ -12,6 +12,8 @@ public class Preparation {
     private Set<Version> versions;
     private String group;
 
+
+
     public Preparation(String name, String pharm, Set<String> analogs, Set<Version> versions, String group) {
         this.name = name;
         this.pharm = pharm;
@@ -111,4 +113,5 @@ public class Preparation {
                 ", group='" + group + '\'' +
                 '}';
     }
+
 }

@@ -1,6 +1,6 @@
 package xmlParser_medicines_task.entity;
 
-import java.util.Date;
+
 
 public class Certificate {
     private int id;
@@ -8,47 +8,57 @@ public class Certificate {
     private String expireDate;//до какокого числа
     private String registrationOfOrganization;
 
-    public Certificate(int id, String startDate, String expireDate, String registrationOfOrganization) {
-        this.id = id;
-        this.startDate = startDate;
-        this.expireDate = expireDate;
-        this.registrationOfOrganization = registrationOfOrganization;
+    private Certificate(Builder builder) {
+        this.id = builder.id;
+        this.startDate = builder.startDate;
+        this.expireDate = builder.expireDate;
+        this.registrationOfOrganization = builder.registrationOfOrganization;
     }
+    public static class Builder {
+        private int id;
+        private String startDate; //от какого числа
+        private String expireDate;//до какокого числа
+        private String registrationOfOrganization;
 
-    public Certificate() {
+
+        public Builder withId(int idCertificate) {
+            id = idCertificate;
+            return this;
+        }
+
+        public Builder withStartDate(String startDateCertificate) {
+            startDate = startDateCertificate;
+            return this;
+        }
+        public Builder withExpireDate(String expireDateCertificate){
+            expireDate = expireDateCertificate;
+            return this;
+        }
+        public Builder witRegistrationOrganization(String regOrganization){
+            registrationOfOrganization = regOrganization;
+            return this;
+        }
+        public Certificate build(){
+            return new Certificate(this);
+        }
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
     }
 
     public String getExpireDate() {
         return expireDate;
     }
 
-    public void setExpireDate(String expireDate) {
-        this.expireDate = expireDate;
-    }
-
     public String getRegistrationOfOrganization() {
         return registrationOfOrganization;
     }
 
-    public void setRegistrationOfOrganization(String registrationOfOrganization) {
-        this.registrationOfOrganization = registrationOfOrganization;
-    }
 
     @Override
     public String toString() {

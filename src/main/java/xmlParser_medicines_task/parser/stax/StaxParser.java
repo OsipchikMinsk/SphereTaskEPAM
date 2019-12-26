@@ -23,13 +23,14 @@ public class StaxParser {
 
     private static final Logger LOGGER = LogManager.getLogger(StaxParser.class);
     private List<Preparation> listOfPreparations;
-    private Preparation preparation;
-    private Version version;
-    private Certificate certificate;
-    private Package packageOfDrugs;
+    private Preparation.Builder builderPreparation;
+    private Version.Builder builderOfVersion;
+    private Certificate.Builder builderOfCertificate;
+    private Package.Builder builderOfPackage;
 
     private List<Preparation> process(XMLStreamReader reader) {
         LOGGER.info("Stax start parsing file");
+
         String tagName = null;
         try {
             while (reader.hasNext()) {
@@ -42,25 +43,23 @@ public class StaxParser {
                                 listOfPreparations = new ArrayList<>();
                                 break;
                             case PREPARATION:
-                                preparation = new Preparation();
-                                preparation.setGroup(reader.getAttributeValue(
-                                        null, PreparationTagName.GROUP));
+                                builderPreparation= new Preparation.Builder();
+                                builderPreparation.withGroup(reader.getAttributeValue(
+                                        null,PreparationTagName.GROUP));
                                 break;
                             case VERSION:
-                                version = new Version();
-                                version.setTypeOfVersion(reader.getAttributeValue(
-                                        null, PreparationTagName.TYPE_OF_VERSION));
-                                preparation.setVersion(version);
+                                builderOfVersion = new Version.Builder();
+                                builderOfVersion.withTypeOfVersion(reader.getAttributeValue(
+                                        null,PreparationTagName.TYPE_OF_VERSION));
                                 break;
                             case CERTIFICATE:
-                                certificate = new Certificate();
-                                version.setCertificate(certificate);
+                                builderOfCertificate = new Certificate.Builder();
                                 break;
                             case PACKAGE:
-                                packageOfDrugs = new Package();
-                                version.setPackageOfPreparation(packageOfDrugs);
+                                builderOfPackage = new Package.Builder();
                                 break;
                         }
+
                         break;
                     case XMLStreamConstants.CHARACTERS: //4
                         String text = reader.getText().trim();
@@ -69,40 +68,42 @@ public class StaxParser {
                         }
                         switch (tagName) {
                             case NAME:
-                                preparation.setName(text);
+                                builderPreparation.withName(text);
                                 break;
                             case PHARM:
-                                preparation.setPharm(text);
+                                builderPreparation.withPharm(text);
                                 break;
                             case ANALOG:
-                                preparation.setAnalog(text);
+                                builderPreparation.withAnalog(text);
                                 break;
                             case CERTIFICATE_ID:
-                                certificate.setId(Integer.parseInt(text));
+                                builderOfCertificate.withId(Integer.parseInt(text));
                                 break;
                             case CERTIFICATE_DATE_START:
-                                certificate.setStartDate(text);
+                                builderOfCertificate.withStartDate(text);
                                 break;
                             case CERTIFICATE_DATE_FINISH:
-                                certificate.setExpireDate(text);
+                                builderOfCertificate.withExpireDate(text);
                                 break;
                             case REGISTRATION_ORAGANIZATION:
-                                certificate.setRegistrationOfOrganization(text);
+                                builderOfCertificate.witRegistrationOrganization(text);
+                                builderOfVersion.withCertificate(builderOfCertificate.build());
                                 break;
                             case TYPE_OF_PACKAGE:
-                                packageOfDrugs.setTypeOfPackage(text);
+                                builderOfPackage.withTypeOfPackage(text);
                                 break;
                             case AMOUNT_IN_PACKAGE:
-                                packageOfDrugs.setAmountInPackage(Integer.parseInt(text));
+                                builderOfPackage.withAmountInPackage(Integer.parseInt(text));
                                 break;
                             case PACKAGE_PRICE:
-                                packageOfDrugs.setPackagePrice(Double.parseDouble(text));
+                                builderOfPackage.withPackagePrice(Double.parseDouble(text));
                                 break;
                             case DOSAGE:
-                                packageOfDrugs.setDosage(text);
+                                builderOfPackage.withDosage(text);
                                 break;
                             case PERIODICITY:
-                                packageOfDrugs.setPeriodicity(text);
+                                builderOfPackage.withPeriodicity(text);
+                                builderOfVersion.withPackage(builderOfPackage.build());
                                 break;
                         }
                         break;
@@ -110,7 +111,10 @@ public class StaxParser {
                         tagName = reader.getLocalName();
                         switch (tagName) {
                             case PREPARATION:
-                                listOfPreparations.add(preparation);
+                                listOfPreparations.add(builderPreparation.build());
+                            case VERSION:
+                                builderPreparation.withVersion(builderOfVersion.build());
+                                break;
                         }
                 }
             }

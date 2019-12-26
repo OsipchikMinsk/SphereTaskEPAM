@@ -15,14 +15,12 @@ import java.util.List;
 public class SaxHandler extends DefaultHandler {
 
     private List<Preparation> listOfPreparations;
-    private Preparation preparation;
     private StringBuilder drugsInformation;
-    private Version version;
-    private Certificate certificate;
-    private Package packageOfDrugs;
-    public List<Preparation> getListOfPreparations() {
-        return listOfPreparations;
-    }
+    private Preparation.Builder builderPreparation;
+    private Version.Builder builderOfVersion;
+    private Certificate.Builder builderOfCertificate;
+    private Package.Builder builderOfPackage;
+
 
     public void startDocument ()throws SAXException{
         System.out.println("Sax started parsing file");
@@ -43,69 +41,76 @@ public class SaxHandler extends DefaultHandler {
                 listOfPreparations = new ArrayList<>();
                 break;
             case PreparationTagName.PREPARATION:
-                preparation = new Preparation();
-                preparation.setGroup(attributes.getValue(PreparationTagName.GROUP));
+                builderPreparation = new Preparation.Builder();
+                builderPreparation.withGroup(attributes.getValue(PreparationTagName.GROUP));
                 break;
             case PreparationTagName.VERSION:
-                version = new Version();
-                version.setTypeOfVersion(attributes.getValue(PreparationTagName.TYPE_OF_VERSION));
-                preparation.setVersion(version);
+                builderOfVersion = new Version.Builder();
+                builderOfVersion.withTypeOfVersion(attributes.getValue(PreparationTagName.TYPE_OF_VERSION));
                 break;
             case PreparationTagName.CERTIFICATE:
-                certificate = new Certificate();
+                builderOfCertificate = new Certificate.Builder();
                 break;
             case PreparationTagName.PACKAGE:
-                packageOfDrugs = new Package();
+                builderOfPackage = new Package.Builder();
                 break;
         }
     }
     public void endElement(String uri, String localName, String qName) throws SAXException{
-            switch (qName){
+        switch (qName) {
             case PreparationTagName.PREPARATION:
-                listOfPreparations.add(preparation);
+                builderOfVersion.withPackage(builderOfPackage.build());
+                builderOfVersion.withCertificate(builderOfCertificate.build());
+                listOfPreparations.add(builderPreparation.build());
+                break;
+            case PreparationTagName.VERSION:
+                builderPreparation.withVersion(builderOfVersion.build());
                 break;
             case PreparationTagName.NAME:
-                preparation.setName(drugsInformation.toString());
+                builderPreparation.withName(drugsInformation.toString());
                 break;
             case PreparationTagName.PHARM:
-                preparation.setPharm(drugsInformation.toString());
+                builderPreparation.withPharm(drugsInformation.toString());
                 break;
             case PreparationTagName.ANALOG:
-                preparation.setAnalog(drugsInformation.toString());
+                builderPreparation.withAnalog(drugsInformation.toString());
                 break;
             case PreparationTagName.CERTIFICATE:
-                version.setCertificate(certificate);
+                builderOfVersion.withCertificate(builderOfCertificate.build());
                 break;
             case PreparationTagName.CERTIFICATE_ID:
-                certificate.setId(Integer.parseInt(drugsInformation.toString()));
+                builderOfCertificate.withId(Integer.parseInt(drugsInformation.toString()));
                 break;
             case PreparationTagName.CERTIFICATE_DATE_START:
-                certificate.setStartDate(drugsInformation.toString());
+                builderOfCertificate.withStartDate(drugsInformation.toString());
                 break;
             case PreparationTagName.CERTIFICATE_DATE_FINISH:
-                certificate.setExpireDate(drugsInformation.toString());
+                builderOfCertificate.withExpireDate(drugsInformation.toString());
                 break;
             case PreparationTagName.REGISTRATION_ORAGANIZATION:
-                certificate.setRegistrationOfOrganization(drugsInformation.toString());
+                builderOfCertificate.witRegistrationOrganization(drugsInformation.toString());
                 break;
             case PreparationTagName.PACKAGE:
-                version.setPackageOfPreparation(packageOfDrugs);
+                builderOfVersion.withPackage(builderOfPackage.build());
                 break;
             case PreparationTagName.TYPE_OF_PACKAGE:
-                packageOfDrugs.setTypeOfPackage(drugsInformation.toString());
+                builderOfPackage.withTypeOfPackage(drugsInformation.toString());
                 break;
             case PreparationTagName.AMOUNT_IN_PACKAGE:
-                packageOfDrugs.setAmountInPackage(Integer.parseInt(drugsInformation.toString()));
+                builderOfPackage.withAmountInPackage(Integer.parseInt(drugsInformation.toString()));
                 break;
             case PreparationTagName.PACKAGE_PRICE:
-                packageOfDrugs.setPackagePrice(Double.parseDouble(drugsInformation.toString()));
+                builderOfPackage.withPackagePrice(Double.parseDouble(drugsInformation.toString()));
                 break;
             case PreparationTagName.DOSAGE:
-                packageOfDrugs.setDosage(drugsInformation.toString());
+                builderOfPackage.withDosage(drugsInformation.toString());
                 break;
             case PreparationTagName.PERIODICITY:
-                packageOfDrugs.setPeriodicity(drugsInformation.toString());
+                builderOfPackage.withPeriodicity(drugsInformation.toString());
                 break;
         }
+    }
+    public List<Preparation> getListOfPreparations() {
+        return listOfPreparations;
     }
 }

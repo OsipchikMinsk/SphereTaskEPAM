@@ -5,40 +5,47 @@ public class Version {
     private Package packageOfPreparation;
     private String typeOfVersion;
 
-    public Version(Certificate certificate, Package packageOfPreparation, String typeOfVersion) {
-        this.certificate = certificate;
-        this.packageOfPreparation = packageOfPreparation;
-        this.typeOfVersion = typeOfVersion;
+    public static  class Builder{
+        private Certificate certificate;
+        private Package packageOfPreparation;
+        private String typeOfVersion;
+
+        public Builder withCertificate (Certificate certificateVersion){
+            certificate = certificateVersion;
+            return this;
+        }
+        public Builder withPackage (Package packageOfPrep){
+            packageOfPreparation = packageOfPrep;
+            return this;
+        }
+        public Builder withTypeOfVersion(String type){
+            typeOfVersion = type;
+            return this;
+        }
+        public Version build(){
+            return new Version(this);
+        }
+    }
+    private Version(Builder builder) {
+        this.certificate = builder.certificate;
+        this.typeOfVersion = builder.typeOfVersion;
+        this.packageOfPreparation = builder.packageOfPreparation;
     }
 
-    public Version() {
-    }
 
     public Certificate getCertificate() {
         return certificate;
-    }
-
-    public void setCertificate(Certificate certificate) {
-        this.certificate = certificate;
     }
 
     public Package getPackageOfPreparation() {
         return packageOfPreparation;
     }
 
-    public void setPackageOfPreparation(Package packageOfPreparation) {
-        this.packageOfPreparation = packageOfPreparation;
-    }
-
     public String getTypeOfVersion() {
         return typeOfVersion;
     }
 
-    public void setTypeOfVersion(String typeOfVersion) {
-        this.typeOfVersion = typeOfVersion;
-    }
-
-    @Override
+     @Override
     public String toString() {
         return "Version{" +
                 "certificate=" + certificate +

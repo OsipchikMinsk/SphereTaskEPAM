@@ -12,33 +12,52 @@ public class Preparation {
     private Set<Version> versions;
     private String group;
 
+    public static class Builder {
+        private String name; //название препарата
+        private String pharm; //фирма производитель
+        private Set<String> analogs;
+        private Set<Version> versions;
+        private String group;
 
+        public Builder() {
+            analogs = new HashSet<>();
+            versions = new HashSet<>();
+        }
+        public Builder withName(String preparationName){
+            name = preparationName;
+            return this;
+        }
+        public Builder withPharm(String pharmName){
+            pharm = pharmName;
+            return this;
+        }
+        public Builder withAnalog(String analog){
+            analogs.add(analog);
+            return this;
+        }
+        public Builder withVersion (Version version){
+            versions.add(version);
+            return this;
+        }
+        public Builder withGroup(String groupPreparation){
+            group = groupPreparation;
+            return this;
+        }
+        public Preparation build(){
+            return new Preparation(this);
+        }
+    }
 
-    public Preparation(String name, String pharm, Set<String> analogs, Set<Version> versions, String group) {
-        this.name = name;
-        this.pharm = pharm;
-        this.analogs = analogs;
-        this.versions = versions;
-        this.group = group;
+    private Preparation(Builder builder) {
+        this.name = builder.name;
+        this.pharm = builder.pharm;
+        this.analogs = builder.analogs;
+        this.versions = builder.versions;
+        this.group = builder.group;
     }
 
     public String getGroup() {
         return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    public Preparation() {
-        versions = new HashSet<>();
-        analogs = new HashSet<>();
-    }
-    public void setAnalog (String analog){
-        analogs.add(analog);
-    }
-    public void setVersion (Version version){
-        versions.add(version);
     }
 
     public String getAnalog(String analog) {
@@ -53,38 +72,22 @@ public class Preparation {
         }
         return null;
     }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getPharm() {
         return pharm;
     }
 
-    public void setPharm(String pharm) {
-        this.pharm = pharm;
-    }
 
     public Set<String> getAnalogs() {
         return analogs;
     }
 
-    public void setAnalogs(Set<String> analogs) {
-        this.analogs = analogs;
-    }
 
-    public Set<Version> getVersions() {
-        return versions;
-    }
 
-    public void setVersions(Set<Version> versions) {
-        this.versions = versions;
-    }
 
     @Override
     public boolean equals(Object o) {
